@@ -194,10 +194,14 @@ public class Controlador {
             String usuario, String contrasena, String nombres,
             String apellidos, String direccion, String telefono,
             Date fechaNacimiento, String numeroDocumento) {
-        return this.negocio.registrarUsuario(Long.parseLong(tipoIdentificacion), Long.parseLong(tipoPersona), 
-                Long.parseLong(tipoUsuario), usuario, contrasena, 
-                nombres, apellidos, direccion, 
+        return this.negocio.registrarUsuario(Long.parseLong(tipoIdentificacion), Long.parseLong(tipoPersona),
+                Long.parseLong(tipoUsuario), usuario, contrasena,
+                nombres, apellidos, direccion,
                 telefono, fechaNacimiento, numeroDocumento);
     }
     
+    public Usuario iniciarSesion(String usuario, String contra){
+        return this.negocio.iniciarSesion(usuario, contra);
+    }
+
 }

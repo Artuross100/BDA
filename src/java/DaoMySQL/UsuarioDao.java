@@ -117,12 +117,12 @@ public class UsuarioDao implements Serializable {
         Usuario u = null;
         try {
             PreparedStatement pst = this.conexion.getConexion().prepareStatement(consulta);
-            ResultSet rs = pst.executeQuery();
             pst.setString(1, usuario);
             pst.setString(2, Encriptador.encriptar(contra));
             TipoUsuario tu;
             TipoPersona tp;
             TipoIdentificacion ti;
+            ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 u = new Usuario();
                 tu = new TipoUsuario(rs.getLong("t.id"), rs.getString("t.descripcion"));

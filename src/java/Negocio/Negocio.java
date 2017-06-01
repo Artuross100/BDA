@@ -536,4 +536,13 @@ public class Negocio implements Serializable {
         }
         return msj;
     }
+    
+    public Usuario iniciarSesion(String usuario, String contra){
+        try {
+            return new UsuarioDao().validarSesion(usuario, contra);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
 }
