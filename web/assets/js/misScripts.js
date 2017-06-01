@@ -16,7 +16,10 @@ function mostrarInformacion(identificador) {
     });
     respuesta.then(function() {
         validarUsuario();
+        $('#tabla').DataTable();
     });
+    
+    
 }
 function validarUsuario() {
     $(document).ready(function() {

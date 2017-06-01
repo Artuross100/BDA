@@ -24,3 +24,5 @@
 <!--  Fonts and icons     -->
 <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
 <link href="assets/css/themify-icons.css" rel="stylesheet">
+<link href="assets/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="assets/css/datatables.min.css" rel="stylesheet" />

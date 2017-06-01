@@ -28,7 +28,7 @@
                 <div class="col-md-8 col-md-offset-2">
                     <h4><ins>Registros Disponibles</ins></h4>
                     <div class="content table-responsive table-full-width">
-                        <table class="table table-striped">
+                        <table id="tabla" class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>Genero</th>
