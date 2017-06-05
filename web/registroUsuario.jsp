@@ -4,7 +4,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="controlador" scope="session" class="Controller.Controlador"></jsp:useBean>
-
+<jsp:include flush="true" page="util/validarSesion.jsp"></jsp:include>
 <%
     ArrayList<TipoIdentificacion> enf = controlador.listarTipoIdentificacion();
     ArrayList<TipoPersona> per = controlador.listarTipoPersona();

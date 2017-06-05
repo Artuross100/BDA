@@ -5,6 +5,7 @@
         <head>
         <jsp:include flush="true" page="headAdmin.jsp"></jsp:include>
         </head>
+        <jsp:include flush="true" page="util/validarSesion.jsp"></jsp:include>
     <%
         ArrayList<Pagina> paginas = controlador.cargarPagina();
     %>

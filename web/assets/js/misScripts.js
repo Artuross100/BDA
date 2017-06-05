@@ -17,10 +17,9 @@ function mostrarInformacion(identificador) {
     respuesta.then(function() {
         validarUsuario();
         $('#tabla').DataTable();
-    });
-    
-    
+    }); 
 }
+
 function validarUsuario() {
     $(document).ready(function() {
         $("#usuario").on("keyup", function() {

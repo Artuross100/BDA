@@ -101,8 +101,8 @@ public class PaginaDao implements Serializable{
                 + "p.ruta "
                 + "FROM Pagina p "
                 + "WHERE p.id NOT IN (SELECT p.id "
-                + "FROM Pagina pi, Permiso ee "
-                + "WHERE pi.id=ee.pagina AND ee.rol=?)";
+                + "FROM Pagina p, Permiso e, Rol r, RolUsuario u "
+                + "WHERE p.id=e.pagina AND e.rol=r.id AND u.rol=r.id AND u.idUsuario=?)";
         try {
             PreparedStatement pst = this.conexion.getConexion().prepareStatement(consulta);
             pst.setLong(1, id);

@@ -545,4 +545,13 @@ public class Negocio implements Serializable {
             return null;
         }
     }
+    
+    public ArrayList<Usuario> listarUsuarios() {
+        try {
+            return new UsuarioDao().listarUsuarios();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
 }

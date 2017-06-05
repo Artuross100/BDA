@@ -3,6 +3,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="controlador" scope="session" class="Controller.Controlador"></jsp:useBean>
+    <jsp:include flush="true" page="util/validarSesion.jsp"></jsp:include>
 <%ArrayList<CondicionSocial> enf = controlador.listarCondicionSocial();%>
 <div class="content">
     <div class="container-fluid">

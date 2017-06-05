@@ -4,7 +4,9 @@
     String usuario = request.getParameter("usuario");
     String contra = request.getParameter("contra");
     Usuario u = controlador.iniciarSesion(usuario, contra);
-    if (u != null) {%>
+    if (u != null) {
+        session.setAttribute("usuario", u);
+%>
 <script>
     window.location.href = "../menuLateral.jsp";
 </script>

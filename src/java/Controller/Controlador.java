@@ -204,4 +204,8 @@ public class Controlador {
         return this.negocio.iniciarSesion(usuario, contra);
     }
 
+    public ArrayList<Usuario> listarUsuarios() {
+        return this.negocio.listarUsuarios();
+    }
+
 }
