@@ -11,8 +11,10 @@ import java.util.logging.Logger;
 
 public class Negocio implements Serializable {
 
+    private BDA banco;
+    
     public Negocio() {
-
+        this.banco = new BDA();
     }
 
     public String registrarTipoIdentificacion(String tipo) {
@@ -580,12 +582,18 @@ public class Negocio implements Serializable {
     }
     
     public ArrayList<Bodega> cargarBodegas() {
+        ArrayList<Bodega> bodegas = null;
         try {
-            return new BodegaDao().cargar();
+            bodegas= new BodegaDao().cargar();
+            this.banco.setBodegas(bodegas);
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return null;
         }
+        return bodegas;
+    }
+    
+    public Bodega buscarBodega(long id){
+        return this.banco.buscarBodega(id);
     }
 
     public static void main(String args[]) {

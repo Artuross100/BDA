@@ -216,4 +216,8 @@ public class Controlador {
         return this.negocio.cargarBodegas();
     }
 
+    public Bodega buscarBodega(long id){
+        return this.negocio.buscarBodega(id);
+    }
+    
 }

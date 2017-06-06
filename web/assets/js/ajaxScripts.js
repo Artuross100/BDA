@@ -1,4 +1,6 @@
+console.log("Si carga");
 function cargarPaginas() {
+    console.log("paginas");
     var id = document.getElementById("usuariosRol").value;
     console.log(id);
     var rutaPagina = "includes/asignarPermisos.jsp";
@@ -10,6 +12,7 @@ function cargarPaginas() {
     });
 }
 function cargarDivisiones() {
+    console.log("divisiones");
     var id = document.getElementById("bodegas").value;
     console.log(id);
     var rutaPagina = "includes/listarDivisiones.jsp";
@@ -17,7 +20,7 @@ function cargarDivisiones() {
         id: id
     },
     function(data) {
-        $("#respuestaPaginas").html(data);
+        $("#mostrarDivisiones").html(data);
     });
 }
 

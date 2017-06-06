@@ -53,6 +53,7 @@ public class BodegaDao implements Serializable {
                 t = new Bodega();
                 t.setId(rs.getLong(1));
                 t.setNombre(rs.getString(2));
+                t.setDivisiones(new DivisionDao().cargar(t.getId()));
                 tipos.add(t);
             }
             rs.close();
