@@ -207,5 +207,13 @@ public class Controlador {
     public ArrayList<Usuario> listarUsuarios() {
         return this.negocio.listarUsuarios();
     }
+    
+    public String registrarBodega(String descripcion, long divisiones) {
+        return this.negocio.registrarBodega(descripcion, divisiones);
+    }
+    
+    public ArrayList<Bodega> cargarBodegas() {
+        return this.negocio.cargarBodegas();
+    }
 
 }

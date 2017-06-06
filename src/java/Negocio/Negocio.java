@@ -536,8 +536,8 @@ public class Negocio implements Serializable {
         }
         return msj;
     }
-    
-    public Usuario iniciarSesion(String usuario, String contra){
+
+    public Usuario iniciarSesion(String usuario, String contra) {
         try {
             return new UsuarioDao().validarSesion(usuario, contra);
         } catch (SQLException ex) {
@@ -545,7 +545,7 @@ public class Negocio implements Serializable {
             return null;
         }
     }
-    
+
     public ArrayList<Usuario> listarUsuarios() {
         try {
             return new UsuarioDao().listarUsuarios();
@@ -553,5 +553,42 @@ public class Negocio implements Serializable {
             ex.printStackTrace();
             return null;
         }
+    }
+
+    public String registrarBodega(String descripcion, long divisiones) {
+        String cad = "No se pudo realizar el registro: " + descripcion + " con " + divisiones + " divisiones";
+        try {
+            long id = new BodegaDao().insertar(descripcion);
+            char div = 'A';
+            DivisionDao d = new DivisionDao();
+            String aux = "";
+            for (int i = 0; i < divisiones; i++) {
+                aux += "(" + id + ",'" + div + "')";
+                if (i + 1 != divisiones) {
+                    aux += ",";
+                }
+                div++;
+            }
+            if (!d.insertar(id, aux)) {
+                cad = "Registro exitoso: " + descripcion + " con " + divisiones + " divisiones";
+            }
+            System.out.println(cad);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cad;
+    }
+    
+    public ArrayList<Bodega> cargarBodegas() {
+        try {
+            return new BodegaDao().cargar();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void main(String args[]) {
+        new Negocio().registrarBodega("Bodega 14", 3);
     }
 }

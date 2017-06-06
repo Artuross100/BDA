@@ -12,11 +12,11 @@ import java.util.logging.Logger;
 public class Conexion implements Serializable {
 
     private Connection conexion;
-    private final String schemaPpal = "ufps_87";
+    private final String schemaPpal = "ufps_6";
     private final String db_url = "jdbc:mysql://sandbox2.ufps.edu.co/" + schemaPpal;
     private final String db_driver = "com.mysql.jdbc.Driver";
-    private final String db_usuario = "ufps_87";
-    private final String db_contrasena = "ufps_er";
+    private final String db_usuario = "ufps_6";
+    private final String db_contrasena = "ufps_29";
 
     public Conexion() throws SQLException {
         try {
