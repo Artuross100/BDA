@@ -1,3 +1,4 @@
+<%@page import="Entidades.Usuario"%>
 <%@page import="Entidades.TipoUsuario"%>
 <%@page import="Entidades.TipoPersona"%>
 <%@page import="Entidades.TipoIdentificacion"%>
@@ -9,6 +10,8 @@
     ArrayList<TipoIdentificacion> enf = controlador.listarTipoIdentificacion();
     ArrayList<TipoPersona> per = controlador.listarTipoPersona();
     ArrayList<TipoUsuario> tipos = controlador.listarTipoUsuario();
+    ArrayList<Usuario> usuarios = controlador.listarUsuarios();
+
 %>
 <div class="content">
     <div class="container-fluid">
@@ -105,21 +108,32 @@
                             <button type="input" class="btn btn-info btn-fill btn-wd btnEnviarAjax">REGISTRAR</button>
                         </div>
                     </form>
-                    <p class="respuestaAjax"></p>
                 </div>
             </div>
-            <div class="row">
+            <div class="row respuestaAjax">
                 <div class="col-md-8 col-md-offset-2">
                     <h4><ins>Registros Disponibles</ins></h4>
                     <div class="content table-responsive table-full-width">
                         <table id="tabla" class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Usuarios registrados</th>
+                                    <th>Nombre</th>
+                                    <th>Tipo de Usuario</th>
+                                    <th>Dirección</th>
+                                    <th>Telefono</th>
                                 </tr>
                             </thead>
                             <tbody>
-
+                                <%if (usuarios != null && !usuarios.isEmpty()) {
+                            for (Usuario u : usuarios) {%>
+                                <tr>
+                                    <td><%=u.getNombres() + " " + u.getApellidos()%></td>
+                                    <td><%=u.getTipoUsuario().getDescripcion()%></td>
+                                    <td><%=u.getDireccion()%></td>
+                                    <td><%=u.getTelefonos()%></td>
+                                </tr>
+                                <%}
+                        }%>
 
                             </tbody>
                         </table>
@@ -131,6 +145,6 @@
 </div>
 <script src="assets/js/misForm.js"></script>
 <script>
-    
+
 
 </script>

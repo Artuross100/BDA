@@ -57,4 +57,28 @@ public class TipoUsuarioDao implements Serializable{
 
         return tipos;
     }
+    
+    public TipoUsuario buscarTipoUsuario(long id) {
+        String consulta = "SELECT id, descripcion FROM TipoUsuario "
+                + "WHERE id=?";
+        TipoUsuario t = null;
+        try {
+            PreparedStatement pst = this.conexion.getConexion().prepareStatement(consulta);
+            pst.setLong(1, id);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                t = new TipoUsuario();
+                t.setId(rs.getInt(1));
+                t.setDescripcion(rs.getString(2));
+            }
+            rs.close();
+            pst.close();
+            this.conexion.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+
+        return t;
+    }
 }

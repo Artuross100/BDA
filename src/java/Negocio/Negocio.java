@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 public class Negocio implements Serializable {
 
     private BDA banco;
-    
+
     public Negocio() {
         this.banco = new BDA();
     }
@@ -517,6 +517,7 @@ public class Negocio implements Serializable {
             String apellidos, String direccion, String telefono,
             Date fechaNacimiento, String numeroDocumento) {
         String msj = "No se pudo registrar";
+        long id = 0;
         Usuario u = new Usuario();
         u.setNombres(nombres);
         u.setApellidos(apellidos);
@@ -530,8 +531,32 @@ public class Negocio implements Serializable {
         u.setTipoPersona(new TipoPersona(tipoPersona, ""));
         u.setIdentificacion(new TipoIdentificacion(tipoIdentificacion, ""));
         try {
-            if (!new UsuarioDao().insertarUsuario(u)) {
-                msj = "Registro exitoso";
+            id = new UsuarioDao().insertarUsuario(u);
+            System.out.println("ID = "+id);
+            if (id != 0) {
+                TipoUsuario t = new TipoUsuarioDao().buscarTipoUsuario(tipoUsuario);
+                System.out.println("Tipo de usuario = "+t.getDescripcion());
+                if (t.getDescripcion().equalsIgnoreCase("Empleado")) {
+                    System.out.println("Empleado");
+                    if (!new EmpleadoDao().insertar(id)) {
+                        msj = "El registro del empleado " + nombres + " " + apellidos + " ha sido exitoso";
+                    }
+                } else {
+                    if (t.getDescripcion().equalsIgnoreCase("Donante")) {
+                        System.out.println("Donante");
+                        if (!new DonanteDao().insertar(id)) {
+                            msj = "El registro del donante " + nombres + " " + apellidos + " ha sido exitoso";
+                        }
+                    } else {
+                        if (t.getDescripcion().equalsIgnoreCase("Beneficiario")) {
+                            System.out.println("Beneficiario");
+                            if (!new BeneficiarioDao().insertar(id)) {
+                                msj = "El registro del beneficiario " + nombres + " " + apellidos + " ha sido exitoso";
+                            }
+                        }
+                    }
+                }
+
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -580,22 +605,31 @@ public class Negocio implements Serializable {
         }
         return cad;
     }
-    
+
     public ArrayList<Bodega> cargarBodegas() {
         ArrayList<Bodega> bodegas = null;
         try {
-            bodegas= new BodegaDao().cargar();
+            bodegas = new BodegaDao().cargar();
             this.banco.setBodegas(bodegas);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return bodegas;
     }
-    
-    public Bodega buscarBodega(long id){
+
+    public Bodega buscarBodega(long id) {
         return this.banco.buscarBodega(id);
     }
 
+    public ArrayList<Donante> listarDonantes() {
+        try {
+            return new DonanteDao().listarDonantes();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    
     public static void main(String args[]) {
         new Negocio().registrarBodega("Bodega 14", 3);
     }

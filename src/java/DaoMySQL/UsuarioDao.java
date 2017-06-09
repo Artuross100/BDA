@@ -40,13 +40,14 @@ public class UsuarioDao implements Serializable {
         return false;
     }
 
-    public boolean insertarUsuario(Usuario usuario) {
-        boolean b = false;
+    public long insertarUsuario(Usuario usuario) {
+        long b = 0;
         String consulta = "INSERT INTO Usuario (tipoIdentificacion, tipoPersona, tipoUsuario,"
                 + " usuario, contrasena, nombres, "
                 + "apellidos, direccion, telefono, "
                 + "fechaNacimiento, numeroDocumento) "
                 + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        String cosulta2 = "SELECT (MAX(id)) AS id FROM Usuario";
         try {
             PreparedStatement pst = this.conexion.getConexion().prepareCall(consulta);
             pst.setLong(1, usuario.getIdentificacion().getId());
@@ -60,7 +61,14 @@ public class UsuarioDao implements Serializable {
             pst.setString(9, usuario.getTelefonos());
             pst.setDate(10, new Date(usuario.getFechaNacimiento().getTime()));
             pst.setString(11, usuario.getNumeroDocumento());
-            b = pst.execute();
+            if(!pst.execute()){
+                PreparedStatement pst2 = this.conexion.getConexion().prepareStatement(cosulta2);
+                ResultSet rs = pst2.executeQuery();
+                if (rs.next()) {
+                    b = rs.getLong("id");
+                }
+                pst2.close();
+            }
             pst.close();
             this.conexion.close();
         } catch (SQLException ex) {
@@ -74,7 +82,8 @@ public class UsuarioDao implements Serializable {
         String consulta = "SELECT * "
                 + "FROM Usuario u, TipoUsuario t, TipoIdentificacion i, TipoPersona p "
                 + "WHERE u.tipoIdentificacion=i.id AND u.tipoPersona=p.id AND "
-                + "u.tipoUsuario=t.id";
+                + "u.tipoUsuario=t.id "
+                + "ORDER BY u.fechaRegistro DESC";
         try {
             PreparedStatement pst = this.conexion.getConexion().prepareStatement(consulta);
             ResultSet rs = pst.executeQuery();

@@ -220,4 +220,8 @@ public class Controlador {
         return this.negocio.buscarBodega(id);
     }
     
+    public ArrayList<Donante> listarDonantes() {
+        return this.negocio.listarDonantes();
+    }
+    
 }

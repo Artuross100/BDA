@@ -33,3 +33,6 @@
         }%>
 </tbody>
 </table>
+<script src="../assets/js/misForm.js"></script>
+<script src="../assets/js/jquery.dataTables.js"></script>
+<script src="../assets/js/dataTables.bootstrap.js"></script>
