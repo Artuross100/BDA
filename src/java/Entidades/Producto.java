@@ -1,6 +1,7 @@
 package Entidades;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Producto implements Serializable {
 
@@ -77,6 +78,28 @@ public class Producto implements Serializable {
 
     public void setGrupo(GrupoAlimentos grupo) {
         this.grupo = grupo;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.codigo);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Producto other = (Producto) obj;
+        if (!Objects.equals(this.codigo, other.codigo)) {
+            return false;
+        }
+        return true;
     }
 
     @Override

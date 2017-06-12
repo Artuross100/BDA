@@ -199,29 +199,41 @@ public class Controlador {
                 nombres, apellidos, direccion,
                 telefono, fechaNacimiento, numeroDocumento);
     }
-    
-    public Usuario iniciarSesion(String usuario, String contra){
+
+    public Usuario iniciarSesion(String usuario, String contra) {
         return this.negocio.iniciarSesion(usuario, contra);
     }
 
     public ArrayList<Usuario> listarUsuarios() {
         return this.negocio.listarUsuarios();
     }
-    
+
     public String registrarBodega(String descripcion, long divisiones) {
         return this.negocio.registrarBodega(descripcion, divisiones);
     }
-    
+
     public ArrayList<Bodega> cargarBodegas() {
         return this.negocio.cargarBodegas();
     }
 
-    public Bodega buscarBodega(long id){
+    public Bodega buscarBodega(long id) {
         return this.negocio.buscarBodega(id);
     }
-    
+
     public ArrayList<Donante> listarDonantes() {
         return this.negocio.listarDonantes();
     }
-    
+
+    public boolean agregarProducto(long codP, long cantidad) {
+        return this.negocio.agregarProducto(codP, cantidad);
+    }
+
+    public Donacion getDonacion() {
+        return this.negocio.getDonacion();
+    }
+
+    public boolean registrarDonacion(long idDonante) {
+        return this.negocio.registrarDonacion(idDonante);
+    }
+
 }

@@ -4,7 +4,6 @@ import Entidades.Donante;
 import Entidades.TipoIdentificacion;
 import Entidades.TipoPersona;
 import Entidades.TipoUsuario;
-import Entidades.Usuario;
 import Util.Conexion;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
@@ -75,5 +74,44 @@ public class DonanteDao implements Serializable {
             ex.printStackTrace();
         }
         return usuarios;
+    }
+    
+    public Donante bucarDonante(long id) {
+        Donante u = null;
+        String consulta = "SELECT * "
+                + "FROM Usuario u, TipoUsuario t, TipoIdentificacion i, TipoPersona p, Donante d "
+                + "WHERE u.tipoIdentificacion=i.id AND u.tipoPersona=p.id AND "
+                + "u.tipoUsuario=t.id AND u.id=?";
+        try {
+            PreparedStatement pst = this.conexion.getConexion().prepareStatement(consulta);
+            pst.setLong(1, id);
+            ResultSet rs = pst.executeQuery();
+            TipoUsuario tu;
+            TipoPersona tp;
+            TipoIdentificacion ti;
+            while (rs.next()) {
+                u = new Donante();
+                tu = new TipoUsuario(rs.getLong("t.id"), rs.getString("t.descripcion"));
+                tp = new TipoPersona(rs.getLong("p.id"), rs.getString("p.descripcion"));
+                ti = new TipoIdentificacion(rs.getLong("i.id"), rs.getString("i.descripcion"));
+                u.setNombres(rs.getString("u.nombres"));
+                u.setApellidos(rs.getString("u.apellidos"));
+                u.setUsuario(rs.getString("u.usuario"));
+                u.setDireccion(rs.getString("u.direccion"));
+                u.setNumeroDocumento(rs.getString("u.numeroDocumento"));
+                u.setTelefonos(rs.getString("u.telefono"));
+                u.setFechaNacimiento(rs.getDate("u.fechaNacimiento"));
+                u.setId(rs.getLong("u.id"));
+                u.setTipoPersona(tp);
+                u.setTipoUsuario(tu);
+                u.setIdentificacion(ti);
+            }
+            rs.close();
+            pst.close();
+            this.conexion.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return u;
     }
 }

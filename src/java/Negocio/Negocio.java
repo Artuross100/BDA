@@ -6,8 +6,6 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Negocio implements Serializable {
 
@@ -532,10 +530,10 @@ public class Negocio implements Serializable {
         u.setIdentificacion(new TipoIdentificacion(tipoIdentificacion, ""));
         try {
             id = new UsuarioDao().insertarUsuario(u);
-            System.out.println("ID = "+id);
+            System.out.println("ID = " + id);
             if (id != 0) {
                 TipoUsuario t = new TipoUsuarioDao().buscarTipoUsuario(tipoUsuario);
-                System.out.println("Tipo de usuario = "+t.getDescripcion());
+                System.out.println("Tipo de usuario = " + t.getDescripcion());
                 if (t.getDescripcion().equalsIgnoreCase("Empleado")) {
                     System.out.println("Empleado");
                     if (!new EmpleadoDao().insertar(id)) {
@@ -629,7 +627,19 @@ public class Negocio implements Serializable {
             return null;
         }
     }
-    
+
+    public boolean agregarProducto(long codP, long cantidad) {
+        return this.banco.agregarProducto(codP, cantidad);
+    }
+
+    public Donacion getDonacion() {
+        return this.banco.getDonacion();
+    }
+
+    public boolean registrarDonacion(long idDonante) {
+        return this.banco.registrarDonacion(idDonante);
+    }
+
     public static void main(String args[]) {
         new Negocio().registrarBodega("Bodega 14", 3);
     }

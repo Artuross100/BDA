@@ -4,9 +4,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="controlador" scope="session" class="Controller.Controlador"></jsp:useBean>
 <jsp:include flush="true" page="util/validarSesion.jsp"></jsp:include>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-<%ArrayList<Producto> productos = controlador.cargarProductos();
-    ArrayList<Donante> donantes = controlador.listarDonantes();%>
+<%ArrayList<Producto> productos = controlador.cargarProductos();%>
 <div class="content">
     <div class="container-fluid">
         <div class="card">
@@ -17,7 +15,7 @@
             </div>
             <div class="row">
                 <form class="formularioAjax" action="Registro/registrarDonacion.jsp" method="post" >
-                    <div class="col-md-5 col-md-offset-1">
+                    <div class="col-md-9 col-md-offset-1">
                         <div class="form-group">
                             <label>Información del producto</label>
                             <select id="productos" name="producto" class="form-control select2p">
@@ -34,30 +32,13 @@
                         </div>
                         <div class="form-group">
                             <label>Cantidad del producto donado</label>
-                            <input type="text" class="form-control" name="cantidad"/>
+                            <input type="number" min="1" class="form-control" name="cantidad" required/>
                         </div>
-                        <button type="input" id="registrarDonacion" class="btn btn-info btn-fill btn-wd btnEnviarAjax">REGISTRAR</button>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Información del donante</label>
-                            <select id="donantes" name="donante" class="form-control select2p">
-                                <%if (donantes != null && !donantes.isEmpty()) {
-                                        for (Donante d : donantes) {%>
-                                <option value="<%=d.getId()%>"><%=d.getNombres() + " " + d.getApellidos()%></option>
-
-                                <%}
-                                } else {%>
-                                <option value="0">No hay donantes registrados</option>
-                                <%}
-                                %>
-                            </select>
-                        </div>
+                        <button type="input" id="registrarDonacion" class="btn btn-info btn-fill btn-wd btnEnviarAjax">AGREGAR PRODUCTO</button>
                     </div>
                 </form>
-                <p class="respuestaAjax"></p>
-
             </div>
+            <p class="respuestaAjax"></p>
             <div id="infoResultado"></div>
         </div>
     </div>
