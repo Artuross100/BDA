@@ -1,7 +1,9 @@
 package Entidades;
 
+import DaoMySQL.DonacionDao;
 import DaoMySQL.DonanteDao;
 import DaoMySQL.ProductoDao;
+import DaoMySQL.ProductoDonacionDao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -75,18 +77,36 @@ public class BDA {
         return false;
     }
 
-    public boolean registrarDonacion(long idDonante){
+    public boolean registrarDonacion(long idDonante) {
         try {
+            String aux = "";
             Donante d = new DonanteDao().bucarDonante(idDonante);
-            if(d!=null){
+            if (d != null) {
                 this.donacion.setDonante(d);
-                this.donacion = new Donacion();
-                return true;
+                long don = new DonacionDao().insertarDonacion(idDonante);
+                if (don > 0) {
+                    ArrayList<ProductoDonacion> apd = this.donacion.getProductos();
+                    for (int i = 0; i < apd.size(); i++) {
+                        aux += "(" + don + ",'" + apd.get(i).getProducto().getCodigo() + "'," + apd.get(i).getCantidad() + ")";
+                        if (i + 1 != apd.size()) {
+                            aux += ",";
+                        }
+                    }
+                    if (new ProductoDonacionDao().insertarProductosDonacion(aux)) {
+                        System.out.println("No");
+
+                    } else {
+                        System.out.println("Si");
+                        this.donacion = new Donacion();
+                        return true;
+                    }
+                }
+
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         return false;
     }
-    
+
 }

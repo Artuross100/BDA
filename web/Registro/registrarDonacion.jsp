@@ -19,52 +19,64 @@
     ArrayList<Donante> donantes = controlador.listarDonantes();
 
 %>
-<form class="formularioAjax" method="post" action="Registro/enviarRegistro.jsp">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-1">
-            <div class="form-group">
-                <label>Información del donante</label>
-                <select id="donantes" name="donante" class="form-control select2p">
-                    <%if (donantes != null && !donantes.isEmpty()) {
+<div id="mensajeValidacion">
+    <form class="formularioAjax" method="post" action="Registro/enviarRegistro.jsp">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-1">
+                <div class="form-group">
+                    <label>Información del donante</label>
+                    <select id="donantes" name="donante" class="form-control select2p">
+                        <%if (donantes != null && !donantes.isEmpty()) {
                             for (Donante don : donantes) {%>
-                    <option value="<%=don.getId()%>"><%=don.getNombres() + " " + don.getApellidos()%></option>
+                        <option value="<%=don.getId()%>"><%=don.getNombres() + " " + don.getApellidos()%></option>
 
-                    <%}
+                        <%}
                     } else {%>
-                    <option value="0">No hay donantes registrados</option>
-                    <%}
-                    %>
-                </select>
+                        <option value="0">No hay donantes registrados</option>
+                        <%}
+                        %>
+                    </select>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8 col-md-offset-1">
-            <%if (!res) {
-                    out.print("No se pudo agregar, revisa que este producto no este registrado");
-                }
-                ArrayList<ProductoDonacion> pd = d.getProductos();
-                if (pd != null && !pd.isEmpty()) {%>
-            <table id="tabla" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Producto</th>
-                        <th>Cantidad</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <%for (ProductoDonacion pr : pd) {%>
-                    <tr>
-                        <td><%=pr.getProducto().getNombre() + " " + pr.getProducto().getMedida() + " " + pr.getProducto().getUnidad().getDescripcion()%></td>
-                        <td><%=pr.getCantidad()%></td>
-                    </tr>
-                    <%}%>
-                </tbody>
-            </table>
-            <input type="submit" value="TERMINAR" class="btn btn-success btnEnviarAjax"/>
-            <%}%>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-1">
+                <%if (!res) {
+                        out.print("No se pudo agregar, revisa que este producto no este registrado");
+                    }
+                    ArrayList<ProductoDonacion> pd = d.getProductos();
+                    if (pd != null && !pd.isEmpty()) {%>
+                <table id="tabla" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%for (ProductoDonacion pr : pd) {%>
+                        <tr>
+                            <td><%=pr.getProducto().getNombre() + " " + pr.getProducto().getMedida() + " " + pr.getProducto().getUnidad().getDescripcion()%></td>
+                            <td><%=pr.getCantidad()%></td>
+                        </tr>
+                        <%}%>
+                    </tbody>
+                </table>
+                <button type="button" id="terminarProceso" class="btn btn-info btn-fill btn-wd btnEnviarAjax">TERMINAR</button>
+                <%}%>
+            </div>
         </div>
-    </div>
-</form>
-<p class="respuestaAjax"></p>
-<script src="assets/js/misForm.js"></script>
+    </form>
+</div>
+<script>
+    $("#terminarProceso").on("click", function() {
+        var idDonante = document.getElementById("donantes").value;
+        var ruta = "Registro/enviarRegistro.jsp";
+        $.post(ruta, {
+            donante: idDonante
+        },
+        function(data) {
+            $("#mensajeValidacion").html(data);
+        });
+    });
+</script>

@@ -10,7 +10,7 @@
         <div class="card">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 header">
-                    <h4><ins>Registrar Condicion Fisica</ins></h4>
+                    <h4><ins>Registrar Donación</ins></h4>
                 </div>
             </div>
             <div class="row">
