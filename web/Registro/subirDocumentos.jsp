@@ -10,8 +10,8 @@
 <%
 
     String nombre = "";
-    String url = "";
-    String foto = "";
+    String descripcion = "";
+    String documento = "";
 
     String ruta = request.getServletContext().getRealPath("/Aliados");
     FileItemFactory file_factory = new DiskFileItemFactory();
@@ -29,10 +29,9 @@
                     if (!archivo_server.exists()) {
                         archivo_server.mkdir();
                     }
-                    foto = ruta + "/" + item.getName();
-                    File archivo = new File(foto);
+                    documento = ruta + "/" + item.getName();
+                    File archivo = new File(documento);
                     item.write(archivo);
-                    foto = "Aliado/"+item.getName();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

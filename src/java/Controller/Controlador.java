@@ -248,4 +248,11 @@ public class Controlador {
         return this.negocio.modificarPrecio(precio, codigo);
     }
 
+    public boolean registrarAliado(String nombre, String url, String foto) {
+        return this.negocio.registrarAliado(nombre, url, foto);
+    }
+    
+    public ArrayList<Aliado> listarAliados(){
+        return this.negocio.listarAliados();
+    }
 }

@@ -689,7 +689,26 @@ public class Negocio implements Serializable {
             return null;
         }
     }
+    
+    public boolean registrarAliado(String nombre, String url, String foto) {
+        Aliado a = new Aliado(nombre, url, foto);
+        try {
+            return new AliadoDao().registrarAliado(a);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
 
+    public ArrayList<Aliado> listarAliados(){
+        try {
+            return new AliadoDao().listarAliados();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
     public static void main(String args[]) {
         new Negocio().registrarBodega("Bodega 14", 3);
     }
