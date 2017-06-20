@@ -23,4 +23,16 @@ function cargarDivisiones() {
         $("#mostrarDivisiones").html(data);
     });
 }
+function cargarDivisionesSelect() {
+    console.log("divisiones");
+    var id = document.getElementById("bodegas2").value;
+    console.log(id);
+    var rutaPagina = "includes/listarDivisionesSelect.jsp";
+    $.post(rutaPagina, {
+        id: id
+    },
+    function(data) {
+        $("#mostrarDivisiones").html(data);
+    });
+}
 
