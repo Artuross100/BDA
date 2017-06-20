@@ -6,25 +6,25 @@
 <jsp:useBean id="controlador" scope="session" class="Controller.Controlador"></jsp:useBean>
 <jsp:include flush="true" page="util/validarSesion.jsp"></jsp:include>
 <%ArrayList<Producto> productos = controlador.cargarProductos();
-    ArrayList<Bodega> bodegas = controlador.cargarBodegas();
 %>
 <div class="content">
     <div class="container-fluid">
         <div class="card">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 header">
-                    <h4><ins>Almacenar Productos</ins></h4>
+                    <h4><ins>Registrar Precio</ins></h4>
                 </div>
             </div>
 
-            <form class="formularioAjax" action="Registro/almacenarProductos.jsp" method="post" >
+            <form class="formularioAjax" action="Registro/asignarPrecio.jsp" method="post" >
                 <div class="row">
-                    <div class="col-md-5 col-md-offset-1">
-                        <select class="form-control" id="bodegas2" name="bodegas2" onchange="cargarDivisionesSelect()">
-                            <%if (bodegas != null && !bodegas.isEmpty()) {%>
-                            <option value="0">Seleccione una bodega</option>
-                            <%for (Bodega bo : bodegas) {%>
-                            <option value="<%=bo.getId()%>"><%=bo.getNombre()%></option>
+                    <div class="col-md-5 col-md-offset-1 form-group">
+                        <label>Productos registrados</label>
+                        <select class="form-control" id="bodegas2" name="productos" onchange="">
+                            <%if (productos != null && !productos.isEmpty()) {%>
+                            <option value="0">Seleccione un producto</option>
+                            <%for (Producto prod : productos) {%>
+                            <option value="<%=prod.getCodigo()%>"><%=prod.getNombre() + "-" + prod.getMedida() + " " + prod.getUnidad().getDescripcion()+" Precio:"+prod.getPrecio()%></option>
                             <%}
                             } else {%>
                             <option value="0">No hay registros disponibles</option>
@@ -32,25 +32,19 @@
                         </select>
                     </div>
                     <div class="col-md-5">
-                        <div id="mostrarDivisiones">
-                            <select class="form-control" id="bodegas" name="bodegas">
-                                <option value="0">Seleccione una division</option>
-                            </select>
+                        <div id="form-group">
+                            <label>Precio del producto</label>
+                            <input name="precio" type="number" class="form-control" required />
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-5 col-md-offset-1">
-                        <button type="input" id="registrarDonacion" class="btn btn-info btn-fill btn-wd btnEnviarAjax">CARGAR</button>
+                        <button type="input" id="registrarDonacion" class="btn btn-info btn-fill btn-wd btnEnviarAjax">REGISTRAR PRECIO</button>
                     </div>
                 </div>
-                <div id="cargarProductosInfo">
-
-                </div>
             </form>
-
             <p class="respuestaAjax"></p>
-            <div id="infoResultado"></div>
         </div>
     </div>
 </div>

@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ProductoDao implements Serializable {
 
@@ -121,6 +123,22 @@ public class ProductoDao implements Serializable {
         }
 
         return t;
+    }
+    
+    public boolean modificarPrecio(float precio, String codigo){
+        boolean b = true;
+        String consulta = "UPDATE Producto set precio=? WHERE codigo=?";
+        try {
+            PreparedStatement pst = this.conexion.getConexion().prepareStatement(consulta);
+            pst.setFloat(1, precio);
+            pst.setString(2, codigo);
+            b = pst.execute();
+            pst.close();
+            this.conexion.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return b;
     }
 
 }

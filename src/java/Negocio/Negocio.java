@@ -672,6 +672,15 @@ public class Negocio implements Serializable {
         return true;
     }
 
+    public boolean modificarPrecio(float precio, String codigo){
+        try {
+            return new ProductoDao().modificarPrecio(precio, codigo);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return true;
+    }
+    
     public static void main(String args[]) {
         new Negocio().registrarBodega("Bodega 14", 3);
     }

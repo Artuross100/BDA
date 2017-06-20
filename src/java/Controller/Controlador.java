@@ -243,5 +243,9 @@ public class Controlador {
     public boolean almacenar(String div, String don, String prod, String cant) {
         return this.negocio.almacenar(div, don, prod, cant);
     }
+    
+    public boolean modificarPrecio(float precio, String codigo){
+        return this.negocio.modificarPrecio(precio, codigo);
+    }
 
 }
