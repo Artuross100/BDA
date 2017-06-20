@@ -239,5 +239,9 @@ public class Controlador {
     public ArrayList<ProductoDonacion> listarProductoDonadosSinAlmacenar() {
         return this.negocio.listarProductoDonadosSinAlmacenar();
     }
+    
+    public boolean almacenar(String div, String don, String prod, String cant) {
+        return this.negocio.almacenar(div, don, prod, cant);
+    }
 
 }

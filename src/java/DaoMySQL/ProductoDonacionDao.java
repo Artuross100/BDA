@@ -1,5 +1,6 @@
 package DaoMySQL;
 
+import Entidades.Donacion;
 import Entidades.Producto;
 import Entidades.ProductoDonacion;
 import Entidades.UnidadMedida;
@@ -35,8 +36,10 @@ public class ProductoDonacionDao implements Serializable {
     public ArrayList<ProductoDonacion> listarProductoDonadosSinAlmacenar() {
         String consulta = "SELECT p.nombre, p.medida, u.descripcion, "
                 + "d.cantidadProducto, d.conforme, p.codigo, "
+                + "d.donacion "
                 + "FROM Producto p, ProductoDonacion d, UnidadMedida u, Donacion do, Donante dn "
-                + "WHERE p.codigo=d.producto AND d.producto "
+                + "WHERE p.codigo=d.producto AND u.id=p.unidadMedida AND do.id=d.donacion AND "
+                + "dn.idUsuario=do.donante AND d.producto "
                 + "NOT IN (SELECT a.productoDonacion "
                 + "FROM Almacenamiento a where a.codDonacion=d.donacion "
                 + "AND d.producto=a.productoDonacion AND d.conforme=a.cantidadAlmacenada)";
@@ -51,6 +54,7 @@ public class ProductoDonacionDao implements Serializable {
                 p = new Producto();
                 pd = new ProductoDonacion();
                 u = new UnidadMedida();
+                pd.setDonacion(rs.getLong(7));
                 p.setCodigo(rs.getString(6));
                 p.setNombre(rs.getString(1));
                 u.setDescripcion(rs.getString(3));

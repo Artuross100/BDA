@@ -8,7 +8,7 @@
     Bodega b = controlador.buscarBodega(id);
     ArrayList<Division> d = null;
 %>
-<select class="form-control">
+<select class="form-control" id="division2" name="division2">
     <%if (b != null) {
             d = b.getDivisiones();%>
             <option value="0">Seleccione una división</option>

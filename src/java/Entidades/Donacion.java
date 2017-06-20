@@ -9,6 +9,7 @@ public class Donacion implements Serializable {
     private Donante donante;
     private ArrayList<ProductoDonacion> productos;
     private Date fecha;
+    private long donacion;
 
     public Donacion() {
         this.productos = new ArrayList<ProductoDonacion>();
@@ -21,6 +22,14 @@ public class Donacion implements Serializable {
 
     public Donante getDonante() {
         return donante;
+    }
+
+    public long getDonacion() {
+        return donacion;
+    }
+
+    public void setDonacion(long donacion) {
+        this.donacion = donacion;
     }
 
     public void setDonante(Donante donante) {

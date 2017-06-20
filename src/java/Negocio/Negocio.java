@@ -650,7 +650,28 @@ public class Negocio implements Serializable {
             return null;
         }
     }
-    
+
+    public boolean almacenar(String div, String don, String prod, String cant) {
+        try {
+            if (div != null && don != null && prod != null && cant != null) {
+                Almacenamiento a = new Almacenamiento();
+                a.setCantidadAlmacenar(Long.parseLong(cant));
+                a.setDivision(new Division('A', "", Long.parseLong(div)));
+                a.setDonacion(Long.parseLong(don));
+                a.setProducto(new ProductoDonacion(new Producto(prod, "", 0, 0, 0), 0, 0));
+                return new AlmacenamientoDao().almacenar(a);
+            }else{
+                System.out.println("div"+div);
+                System.out.println("don"+don);
+                System.out.println("prod"+prod);
+                System.out.println("cant"+cant);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return true;
+    }
+
     public static void main(String args[]) {
         new Negocio().registrarBodega("Bodega 14", 3);
     }

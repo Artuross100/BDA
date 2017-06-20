@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-md-5">
                         <div id="mostrarDivisiones">
-                            <select class="form-control" id="bodegas" name="bodegas">
+                            <select class="form-control" id="bodegas" name="division2">
                                 <option value="0">Seleccione una division</option>
                             </select>
                         </div>
@@ -47,7 +47,7 @@
                             <select id="productos" name="producto" class="form-control select2p">
                                 <%if (productos != null && !productos.isEmpty()) {
                                         for (ProductoDonacion prod : productos) {%>
-                                <option value="<%=prod.getProducto().getCodigo()%>"><%=prod.getProducto().getNombre() + "-" + prod.getProducto().getMedida() + " " + prod.getProducto().getUnidad().getDescripcion()%></option>
+                                <option value="<%=prod.getProducto().getCodigo()+"-"+prod.getDonacion()%>"><%=prod.getProducto().getNombre() + "-" + prod.getProducto().getMedida() + " " + prod.getProducto().getUnidad().getDescripcion()+" "+prod.getConforme()+" Unidades conformes"%></option>
 
                                 <%}
                                 } else {%>
@@ -57,12 +57,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Cantidad disponible conforme</label>
-                            <input type="number" class="form-control" disabled id="cantidadDisponible"/>
-                        </div>
-                        <div class="form-group">
                             <label>Cantidad a almacenar</label>
-                            <input type="number" class="form-control" id="cantidadAlmacenar"/>
+                            <input type="number" class="form-control" id="cantidadAlmacenar" name="cantidadAlmacenar"/>
                         </div>
                         <button type="input" id="registrarDonacion" class="btn btn-info btn-fill btn-wd btnEnviarAjax">ALMACENAR</button>
                     </div>
