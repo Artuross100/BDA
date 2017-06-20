@@ -7,10 +7,15 @@
 <%
     String producto = request.getParameter("producto");
     String cantidad = request.getParameter("cantidad");
+    String conforme = request.getParameter("conforme");
     boolean res = false;
     try {
-        if (Long.parseLong(producto) > 0 && Long.parseLong(cantidad) > 0) {
-            res = controlador.agregarProducto(Long.parseLong(producto), Long.parseLong(cantidad));
+        if (Long.parseLong(conforme) <= Long.parseLong(cantidad)) {
+            if (Long.parseLong(producto) > 0 && Long.parseLong(cantidad) > 0) {
+                res = controlador.agregarProducto(Long.parseLong(producto), Long.parseLong(cantidad), Long.parseLong(conforme));
+            }
+        }else{
+            out.print("La cantidad del producto conforme es mayor a la cantidad ingresada.");
         }
     } catch (Exception e) {
         out.print("Ha ocurrido un error");
@@ -27,11 +32,11 @@
                     <label>Información del donante</label>
                     <select id="donantes" name="donante" class="form-control select2p">
                         <%if (donantes != null && !donantes.isEmpty()) {
-                            for (Donante don : donantes) {%>
+                                for (Donante don : donantes) {%>
                         <option value="<%=don.getId()%>"><%=don.getNombres() + " " + don.getApellidos()%></option>
 
                         <%}
-                    } else {%>
+                        } else {%>
                         <option value="0">No hay donantes registrados</option>
                         <%}
                         %>

@@ -7,13 +7,15 @@ public class ProductoDonacion {
     private Producto producto;
     private long cantidad;
     private String comentarios;
+    private long conforme;
 
     public ProductoDonacion() {
     }
 
-    public ProductoDonacion(Producto producto, long cantidad) {
+    public ProductoDonacion(Producto producto, long cantidad, long conforme) {
         this.producto = producto;
         this.cantidad = cantidad;
+        this.conforme = conforme;
     }
 
     public Producto getProducto() {
@@ -38,6 +40,14 @@ public class ProductoDonacion {
 
     public void setComentarios(String comentarios) {
         this.comentarios = comentarios;
+    }
+
+    public long getConforme() {
+        return conforme;
+    }
+
+    public void setConforme(long conforme) {
+        this.conforme = conforme;
     }
 
     @Override

@@ -34,6 +34,10 @@
                             <label>Cantidad del producto donado</label>
                             <input type="number" min="1" class="form-control" name="cantidad" required/>
                         </div>
+                            <div class="form-group">
+                            <label>Cantidad del producto conforme</label>
+                            <input type="number" min="1" class="form-control" name="conforme" required/>
+                        </div>
                         <button type="input" id="registrarDonacion" class="btn btn-info btn-fill btn-wd btnEnviarAjax">AGREGAR PRODUCTO</button>
                     </div>
                 </form>

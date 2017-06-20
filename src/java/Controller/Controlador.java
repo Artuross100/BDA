@@ -224,8 +224,8 @@ public class Controlador {
         return this.negocio.listarDonantes();
     }
 
-    public boolean agregarProducto(long codP, long cantidad) {
-        return this.negocio.agregarProducto(codP, cantidad);
+    public boolean agregarProducto(long codP, long cantidad, long conforme) {
+        return this.negocio.agregarProducto(codP, cantidad, conforme);
     }
 
     public Donacion getDonacion() {

@@ -63,11 +63,11 @@ public class BDA {
         return null;
     }
 
-    public boolean agregarProducto(long codP, long cantidad) {
+    public boolean agregarProducto(long codP, long cantidad, long conforme) {
         try {
             Producto p = new ProductoDao().buscarProducto(codP);
             if (p != null) {
-                return this.donacion.insertarProducto(new ProductoDonacion(p, cantidad));
+                return this.donacion.insertarProducto(new ProductoDonacion(p, cantidad, conforme));
             } else {
                 return false;
             }
@@ -87,7 +87,7 @@ public class BDA {
                 if (don > 0) {
                     ArrayList<ProductoDonacion> apd = this.donacion.getProductos();
                     for (int i = 0; i < apd.size(); i++) {
-                        aux += "(" + don + ",'" + apd.get(i).getProducto().getCodigo() + "'," + apd.get(i).getCantidad() + ")";
+                        aux += "(" + don + ",'" + apd.get(i).getProducto().getCodigo() + "'," + apd.get(i).getCantidad() + "," + apd.get(i).getConforme() + ")";
                         if (i + 1 != apd.size()) {
                             aux += ",";
                         }

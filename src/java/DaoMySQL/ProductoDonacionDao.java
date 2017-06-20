@@ -14,7 +14,7 @@ public class ProductoDonacionDao implements Serializable {
     }
 
     public boolean insertarProductosDonacion(String con) {
-        String consulta = "INSERT INTO ProductoDonacion (donacion, producto, cantidadProducto) VALUES " + con;
+        String consulta = "INSERT INTO ProductoDonacion (donacion, producto, cantidadProducto, conforme) VALUES " + con;
         boolean b=false;
         try {
             PreparedStatement pst = this.conexion.getConexion().prepareStatement(consulta);

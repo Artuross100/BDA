@@ -628,8 +628,8 @@ public class Negocio implements Serializable {
         }
     }
 
-    public boolean agregarProducto(long codP, long cantidad) {
-        return this.banco.agregarProducto(codP, cantidad);
+    public boolean agregarProducto(long codP, long cantidad, long conforme) {
+        return this.banco.agregarProducto(codP, cantidad, conforme);
     }
 
     public Donacion getDonacion() {
