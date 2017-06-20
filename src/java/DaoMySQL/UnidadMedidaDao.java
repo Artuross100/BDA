@@ -59,4 +59,30 @@ public class UnidadMedidaDao implements Serializable {
         return tipos;
     }
 
+    public UnidadMedida buscarUnidadPorId(long idUnidad){
+        
+        String consulta;
+        UnidadMedida unidad = null;
+        PreparedStatement state;
+        ResultSet rs;
+        
+        try{
+            consulta = "SELECT * FROM UnidadMedida WHERE id = ?";
+            state = this.conexion.getConexion().prepareStatement(consulta);
+            state.setLong(1, idUnidad);
+            
+            rs = state.executeQuery();
+            
+            while(rs.next()){
+                unidad = new UnidadMedida(rs.getString("descripcion"));
+                unidad.setId(idUnidad);
+            }
+            
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+        
+        return unidad;
+    }
 }

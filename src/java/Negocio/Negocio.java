@@ -660,11 +660,11 @@ public class Negocio implements Serializable {
                 a.setDonacion(Long.parseLong(don));
                 a.setProducto(new ProductoDonacion(new Producto(prod, "", 0, 0, 0), 0, 0));
                 return new AlmacenamientoDao().almacenar(a);
-            }else{
-                System.out.println("div"+div);
-                System.out.println("don"+don);
-                System.out.println("prod"+prod);
-                System.out.println("cant"+cant);
+            } else {
+                System.out.println("div" + div);
+                System.out.println("don" + don);
+                System.out.println("prod" + prod);
+                System.out.println("cant" + cant);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -672,7 +672,7 @@ public class Negocio implements Serializable {
         return true;
     }
 
-    public boolean modificarPrecio(float precio, String codigo){
+    public boolean modificarPrecio(float precio, String codigo) {
         try {
             return new ProductoDao().modificarPrecio(precio, codigo);
         } catch (SQLException ex) {
@@ -680,7 +680,16 @@ public class Negocio implements Serializable {
         }
         return true;
     }
-    
+
+    public ArrayList<String> listarProductosDonacionPorDivision(long idDivision) {
+        try {
+            return (ArrayList<String>) new ProductoDonacionDao().listarProductosDonacionPorDivision(idDivision);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
     public static void main(String args[]) {
         new Negocio().registrarBodega("Bodega 14", 3);
     }

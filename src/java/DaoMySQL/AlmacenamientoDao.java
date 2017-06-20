@@ -35,4 +35,6 @@ public class AlmacenamientoDao implements Serializable{
         }
         return b;
     }
+    
+    
 }

@@ -24,6 +24,17 @@ public class Producto implements Serializable {
         this.precio = precio;
     }
 
+    public Producto(String codigo, UnidadMedida unidad, String nombre, float peso, float medida, float precio, GrupoAlimentos grupo) {
+        this.codigo = codigo;
+        this.unidad = unidad;
+        this.nombre = nombre;
+        this.peso = peso;
+        this.medida = medida;
+        this.precio = precio;
+        this.grupo = grupo;
+    }
+    
+
     public String getCodigo() {
         return codigo;
     }
@@ -104,7 +115,7 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return "Producto{" + "codigo=" + codigo + ", unidad=" + unidad + ", nombre=" + nombre + ", peso=" + peso + ", medida=" + medida + ", precio=" + precio + ", grupo=" + grupo + '}';
+        return codigo + "," + unidad + "," + nombre + "," + peso + "," + medida + "," + precio + "," + grupo;
     }
 
 }

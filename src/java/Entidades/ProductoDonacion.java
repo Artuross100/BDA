@@ -77,5 +77,9 @@ public class ProductoDonacion {
         final ProductoDonacion other = (ProductoDonacion) obj;
         return this.producto.equals(other);
     }
-    
+
+    @Override
+    public String toString() {
+        return producto + "," + cantidad + "," + comentarios + "," + conforme + "," + donacion;
+    }
 }
