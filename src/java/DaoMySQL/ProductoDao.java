@@ -123,4 +123,47 @@ public class ProductoDao implements Serializable {
         return t;
     }
 
+     public ArrayList<Producto> buscarProductoPorDonacion(long idDonacion) {
+        Producto t = null;
+         ArrayList<Producto> p= new ArrayList();
+        String consulta = "SELECT u.id, u.descripcion, p.codigo, "
+                + "p.nombre, p.peso, p.medida, "
+                + "p.precio, g.id, g.descripcion "
+                + "FROM UnidadMedida u, Producto p, GrupoAlimentos g "
+                + "WHERE u.id=p.unidadMedida AND g.id=p.grupo AND p.donacion=?";
+        try {
+            PreparedStatement pst = this.conexion.getConexion().prepareStatement(consulta);
+            pst.setLong(1, idDonacion);
+            ResultSet rs = pst.executeQuery();
+           
+            GrupoAlimentos g;
+            UnidadMedida u;
+            while (rs.next()) {
+                t = new Producto();
+                u = new UnidadMedida();
+                g = new GrupoAlimentos();
+                u.setId(rs.getLong(1));
+                u.setDescripcion(rs.getString(2));
+                t.setCodigo(rs.getString(3));
+                t.setNombre(rs.getString(4));
+                t.setPeso(rs.getFloat(5));
+                t.setMedida(rs.getFloat(6));
+                t.setPrecio(rs.getFloat(7));
+                g.setId(rs.getLong(8));
+                g.setDescripcion(rs.getString(9));
+                t.setUnidad(u);
+                t.setGrupo(g);
+                p.add(t);
+                
+            }
+            rs.close();
+            pst.close();
+            this.conexion.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+
+        return p;
+    }
 }

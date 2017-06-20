@@ -10,6 +10,11 @@ public class GrupoAlimentos implements Serializable{
     public GrupoAlimentos() {
     }
 
+    public GrupoAlimentos(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
+
     public long getId() {
         return id;
     }

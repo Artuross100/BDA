@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductoDonacionDao implements Serializable {
 
@@ -72,5 +73,40 @@ public class ProductoDonacionDao implements Serializable {
             ex.printStackTrace();
         }
         return productos;
+    }
+    
+    public List<ProductoDonacion> listarProductosDonacionPorDivision(long idDivision){
+        
+        List<ProductoDonacion> listadoProductos;
+        String consulta;
+        PreparedStatement state;
+        ResultSet rs;
+        ProductoDonacion productoDonacion;
+        Producto producto;
+        
+        try{
+            consulta = "SELECT p.*, pd.donacion, pd.cantidadProducto, pd.conforme FROM ProductoDonacion pd LEFT JOIN producto p"
+                    + " ON p.codigo = pd.producto LEFT JOIN almacenamiento a"
+                    + " ON a.productoDonacion = pd.donacion WHERE a.division = ?";
+            state = this.conexion.getConexion().prepareStatement(consulta);
+            state.setLong(1, idDivision);
+            
+            rs = state.executeQuery();
+            
+            listadoProductos = new ArrayList<>(0);
+            
+            while(rs.next()){
+                producto = new Producto( rs.getString("codigo"), new UnidadMedidaDao().buscarUnidadPorId(rs.getLong("unidadMedida")), 
+                        rs.getString("nombre"), rs.getFloat("peso"), rs.getFloat("medida"), rs.getFloat("precio"), 
+                        new GrupoAlimentosDao().buscarGrupoAlimentosPorId(rs.getLong("grupo")));
+                productoDonacion = new ProductoDonacion(producto, rs.getLong("cantidad"), rs.getLong("conforme"));
+                listadoProductos.add(productoDonacion);
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+        
+        return listadoProductos;
     }
 }

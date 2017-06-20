@@ -9,6 +9,9 @@ public class UnidadMedida implements Serializable{
 
     public UnidadMedida() {
     }
+       public UnidadMedida(String des) {
+           this.descripcion=des;
+    }
 
     public long getId() {
         return id;

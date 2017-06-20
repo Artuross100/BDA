@@ -59,4 +59,26 @@ public class GrupoAlimentosDao implements Serializable {
         return tipos;
     }
 
+    public GrupoAlimentos buscarGrupoAlimentosPorId(long idGrupo){
+        String consulta;
+        PreparedStatement state;
+        ResultSet rs;
+        GrupoAlimentos grupo = null;
+        
+        try{
+            consulta = "SELECT * FROM ";
+            state = this.conexion.getConexion().prepareStatement(consulta);
+            state.setLong(1, idGrupo);
+            
+            rs = state.executeQuery();
+            while(rs.next()){
+                grupo = new GrupoAlimentos(rs.getString("descripcion"));
+                grupo.setId(idGrupo);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+        return grupo;
+    }
 }
