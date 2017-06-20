@@ -1,3 +1,4 @@
+<%@page import="Entidades.ProductoDonacion"%>
 <%@page import="Entidades.Bodega"%>
 <%@page import="Entidades.Donante"%>
 <%@page import="Entidades.Producto"%>
@@ -5,7 +6,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="controlador" scope="session" class="Controller.Controlador"></jsp:useBean>
 <jsp:include flush="true" page="util/validarSesion.jsp"></jsp:include>
-<%ArrayList<Producto> productos = controlador.cargarProductos();
+<%ArrayList<ProductoDonacion> productos = controlador.listarProductoDonadosSinAlmacenar();
     ArrayList<Bodega> bodegas = controlador.cargarBodegas();
 %>
 <div class="content">
@@ -45,8 +46,8 @@
                             <label>Información del producto</label>
                             <select id="productos" name="producto" class="form-control select2p">
                                 <%if (productos != null && !productos.isEmpty()) {
-                                        for (Producto prod : productos) {%>
-                                <option value="<%=prod.getCodigo()%>"><%=prod.getNombre() + "-" + prod.getMedida() + " " + prod.getUnidad().getDescripcion()%></option>
+                                        for (ProductoDonacion prod : productos) {%>
+                                <option value="<%=prod.getProducto().getCodigo()%>"><%=prod.getProducto().getNombre() + "-" + prod.getProducto().getMedida() + " " + prod.getProducto().getUnidad().getDescripcion()%></option>
 
                                 <%}
                                 } else {%>
@@ -56,7 +57,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Cantidad disponible</label>
+                            <label>Cantidad disponible conforme</label>
                             <input type="number" class="form-control" disabled id="cantidadDisponible"/>
                         </div>
                         <div class="form-group">

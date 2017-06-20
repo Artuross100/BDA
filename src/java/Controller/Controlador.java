@@ -236,4 +236,8 @@ public class Controlador {
         return this.negocio.registrarDonacion(idDonante);
     }
 
+    public ArrayList<ProductoDonacion> listarProductoDonadosSinAlmacenar() {
+        return this.negocio.listarProductoDonadosSinAlmacenar();
+    }
+
 }

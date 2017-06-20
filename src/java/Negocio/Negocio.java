@@ -6,6 +6,8 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Negocio implements Serializable {
 
@@ -640,6 +642,15 @@ public class Negocio implements Serializable {
         return this.banco.registrarDonacion(idDonante);
     }
 
+    public ArrayList<ProductoDonacion> listarProductoDonadosSinAlmacenar() {
+        try {
+            return new ProductoDonacionDao().listarProductoDonadosSinAlmacenar();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    
     public static void main(String args[]) {
         new Negocio().registrarBodega("Bodega 14", 3);
     }
