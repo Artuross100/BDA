@@ -44,11 +44,6 @@
             }
         }
     }
-    if (asunto.isEmpty()) {
-
-        //out.print("Debe agregar un asunto a la tarea");
-    } else {
-
-    }
+  
 
 %>

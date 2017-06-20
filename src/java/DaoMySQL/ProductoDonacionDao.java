@@ -85,7 +85,8 @@ public class ProductoDonacionDao implements Serializable {
         Producto producto;
         
         try{
-            consulta = "SELECT p.*, pd.donacion, pd.cantidadProducto, pd.conforme, a.cantidadAlmacenada FROM ProductoDonacion pd LEFT JOIN Producto p"
+            consulta = "SELECT p.*, pd.donacion, pd.cantidadProducto, pd.conforme, "
+                    + "a.cantidadAlmacenada FROM ProductoDonacion pd LEFT JOIN Producto p"
                     + " ON p.codigo = pd.producto LEFT JOIN Almacenamiento a"
                     + " ON (a.productoDonacion = pd.producto AND a.codDonacion = pd.donacion) WHERE a.division = ?";
             state = this.conexion.getConexion().prepareStatement(consulta);
