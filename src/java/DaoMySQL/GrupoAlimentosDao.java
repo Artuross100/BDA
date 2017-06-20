@@ -66,7 +66,7 @@ public class GrupoAlimentosDao implements Serializable {
         GrupoAlimentos grupo = null;
         
         try{
-            consulta = "SELECT * FROM ";
+            consulta = "SELECT * FROM GrupoAlimentos WHERE id = ?";
             state = this.conexion.getConexion().prepareStatement(consulta);
             state.setLong(1, idGrupo);
             

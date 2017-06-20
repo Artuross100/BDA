@@ -75,9 +75,9 @@ public class ProductoDonacionDao implements Serializable {
         return productos;
     }
     
-    public List<ProductoDonacion> listarProductosDonacionPorDivision(long idDivision){
+    public List<String> listarProductosDonacionPorDivision(long idDivision){
         
-        List<ProductoDonacion> listadoProductos;
+        List<String> listadoProductos;
         String consulta;
         PreparedStatement state;
         ResultSet rs;
@@ -85,9 +85,9 @@ public class ProductoDonacionDao implements Serializable {
         Producto producto;
         
         try{
-            consulta = "SELECT p.*, pd.donacion, pd.cantidadProducto, pd.conforme FROM ProductoDonacion pd LEFT JOIN producto p"
-                    + " ON p.codigo = pd.producto LEFT JOIN almacenamiento a"
-                    + " ON a.productoDonacion = pd.donacion WHERE a.division = ?";
+            consulta = "SELECT p.*, pd.donacion, pd.cantidadProducto, pd.conforme, a.cantidadAlmacenada FROM ProductoDonacion pd LEFT JOIN Producto p"
+                    + " ON p.codigo = pd.producto LEFT JOIN Almacenamiento a"
+                    + " ON (a.productoDonacion = pd.producto AND a.codDonacion = pd.donacion) WHERE a.division = ?";
             state = this.conexion.getConexion().prepareStatement(consulta);
             state.setLong(1, idDivision);
             
@@ -99,8 +99,8 @@ public class ProductoDonacionDao implements Serializable {
                 producto = new Producto( rs.getString("codigo"), new UnidadMedidaDao().buscarUnidadPorId(rs.getLong("unidadMedida")), 
                         rs.getString("nombre"), rs.getFloat("peso"), rs.getFloat("medida"), rs.getFloat("precio"), 
                         new GrupoAlimentosDao().buscarGrupoAlimentosPorId(rs.getLong("grupo")));
-                productoDonacion = new ProductoDonacion(producto, rs.getLong("cantidad"), rs.getLong("conforme"));
-                listadoProductos.add(productoDonacion);
+                productoDonacion = new ProductoDonacion(producto, rs.getLong("cantidadProducto"), rs.getLong("conforme"));
+                listadoProductos.add(productoDonacion.toString() + "," + rs.getString("cantidadAlmacenada"));
             }
         } catch(SQLException e){
             e.printStackTrace();

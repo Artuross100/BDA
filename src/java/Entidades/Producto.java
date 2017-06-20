@@ -115,7 +115,7 @@ public class Producto implements Serializable {
 
     @Override
     public String toString() {
-        return "Producto{" + "codigo=" + codigo + ", unidad=" + unidad + ", nombre=" + nombre + ", peso=" + peso + ", medida=" + medida + ", precio=" + precio + ", grupo=" + grupo + '}';
+        return codigo + "," + unidad + "," + nombre + "," + peso + "," + medida + "," + precio + "," + grupo;
     }
 
 }

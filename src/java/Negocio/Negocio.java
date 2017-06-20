@@ -672,6 +672,15 @@ public class Negocio implements Serializable {
         return true;
     }
 
+    public ArrayList<String> listarProductosDonacionPorDivision(long idDivision){
+        try {
+            return (ArrayList<String>) new ProductoDonacionDao().listarProductosDonacionPorDivision(idDivision);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+    
     public static void main(String args[]) {
         new Negocio().registrarBodega("Bodega 14", 3);
     }
