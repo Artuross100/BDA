@@ -32,7 +32,7 @@
                     foto = ruta + "/" + item.getName();
                     File archivo = new File(foto);
                     item.write(archivo);
-                    foto = "Aliado/"+item.getName();
+                    foto = "Aliados/"+item.getName();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -42,7 +42,10 @@
                 nombre = item.getString("UTF-8");
             }
             if (item.getFieldName().equalsIgnoreCase("url")) {
-                url = item.getString("UTF-8");
+                if(!url.startsWith("http://")){
+                    url ="http://"+ item.getString("UTF-8");
+                }
+                
             }
         }
     }

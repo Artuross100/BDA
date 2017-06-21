@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class InfoGeneralDao implements Serializable {
 
@@ -164,5 +166,27 @@ public class InfoGeneralDao implements Serializable {
         }
 
         return t;
+    }
+    
+    public boolean modificarInfo(String mision, String vision, String objetivos, String quienes, String descripcion, String principios){
+        String consulta = "UPDATE InfoGeneral set mision=?, vision=?, objetivos=?, quienesSomos=?, bancoDescripcion=?, principios=? "
+                + "WHERE id=?";
+        boolean b = true;
+        try {
+            PreparedStatement pst = this.conexion.getConexion().prepareStatement(consulta);
+            pst.setString(1, mision);
+            pst.setString(2, vision);
+            pst.setString(3, objetivos);
+            pst.setString(4, quienes);
+            pst.setString(5, descripcion);
+            pst.setString(6, principios);
+            pst.setInt(7, 1);
+            b = pst.execute();
+            pst.close();
+            this.conexion.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return b;
     }
 }

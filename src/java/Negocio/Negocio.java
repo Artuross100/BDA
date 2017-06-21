@@ -712,4 +712,22 @@ public class Negocio implements Serializable {
     public static void main(String args[]) {
         new Negocio().registrarBodega("Bodega 14", 3);
     }
+    
+    public boolean modificarElementos(String nombre, String direccion, String telefono,
+            String representante, String ciudad, String correo, String mision, String vision, 
+            String objetivos, String quienes, String descripcion, String principios){
+        DatosBanco.setCiudad(ciudad);
+        DatosBanco.setCorreo(correo);
+        DatosBanco.setDireccion(direccion);
+        DatosBanco.setNombreBanco(nombre);
+        DatosBanco.setRepresentante(representante);
+        DatosBanco.setTelefono(telefono);
+        try {
+            return new InfoGeneralDao().modificarInfo(mision, vision, objetivos, quienes, descripcion, principios);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return true;
+    }
+    
 }

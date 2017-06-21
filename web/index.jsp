@@ -1,9 +1,11 @@
+<%@page import="Negocio.DatosBanco"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <jsp:include flush="true" page="head.jsp"></jsp:include>
         </head>
         <body>
+            <%DatosBanco.setVisitas();%>
         <jsp:include flush="true" page="menu.jsp"></jsp:include>
         <jsp:include flush="true" page="slider.jsp"></jsp:include>
             <div class="container">

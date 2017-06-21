@@ -32,11 +32,12 @@
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
                         <input name="foto" type="file" class="form-control" required />  
+                        <p>La fotografía debe ser tipo png, jpg, jpeg, y el tamaño adecuado es de 250px x 350px</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-5 col-md-offset-1">
-                        <button type="input" id="registrarDonacion" class="btn btn-info btn-fill btn-wd btnEnviarAjaxPart">REGISTRAR PRECIO</button>
+                        <button type="input" id="registrarDonacion" class="btn btn-info btn-fill btn-wd btnEnviarAjaxPart">REGISTRAR ALIADO</button>
                     </div>
                 </div>
             </form>

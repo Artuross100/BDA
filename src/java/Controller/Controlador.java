@@ -239,20 +239,32 @@ public class Controlador {
     public ArrayList<ProductoDonacion> listarProductoDonadosSinAlmacenar() {
         return this.negocio.listarProductoDonadosSinAlmacenar();
     }
-    
+
     public boolean almacenar(String div, String don, String prod, String cant) {
         return this.negocio.almacenar(div, don, prod, cant);
     }
-    
-    public boolean modificarPrecio(float precio, String codigo){
+
+    public boolean modificarPrecio(float precio, String codigo) {
         return this.negocio.modificarPrecio(precio, codigo);
     }
 
     public boolean registrarAliado(String nombre, String url, String foto) {
         return this.negocio.registrarAliado(nombre, url, foto);
     }
-    
-    public ArrayList<Aliado> listarAliados(){
+
+    public ArrayList<Aliado> listarAliados() {
         return this.negocio.listarAliados();
+    }
+
+    public boolean modificarElementos(String nombre, String direccion, String telefono,
+            String representante, String ciudad, String correo, String mision, String vision,
+            String objetivos, String quienes, String descripcion, String principios) {
+        return this.negocio.modificarElementos(nombre, direccion, telefono, representante, 
+                ciudad, correo, mision, vision, objetivos, quienes, descripcion, principios);
+    }
+    
+    public ArrayList<String> listarProductosDonacionPorDivision(String idDivision) {
+        long id = Long.parseLong(idDivision);
+        return this.negocio.listarProductosDonacionPorDivision(id);
     }
 }

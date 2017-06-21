@@ -51,7 +51,7 @@ public class ProductoDonacionDao implements Serializable {
             ProductoDonacion pd = null;
             Producto p = null;
             UnidadMedida u = null;
-            while(rs.next()){
+            while (rs.next()) {
                 p = new Producto();
                 pd = new ProductoDonacion();
                 u = new UnidadMedida();
@@ -74,40 +74,40 @@ public class ProductoDonacionDao implements Serializable {
         }
         return productos;
     }
-    
-    public List<String> listarProductosDonacionPorDivision(long idDivision){
-        
-        List<String> listadoProductos;
+
+    public ArrayList<String> listarProductosDonacionPorDivision(long idDivision) {
+
+        ArrayList<String> listadoProductos;
         String consulta;
         PreparedStatement state;
         ResultSet rs;
         ProductoDonacion productoDonacion;
         Producto producto;
-        
-        try{
+
+        try {
             consulta = "SELECT p.*, pd.donacion, pd.cantidadProducto, pd.conforme, "
                     + "a.cantidadAlmacenada FROM ProductoDonacion pd LEFT JOIN Producto p"
                     + " ON p.codigo = pd.producto LEFT JOIN Almacenamiento a"
                     + " ON (a.productoDonacion = pd.producto AND a.codDonacion = pd.donacion) WHERE a.division = ?";
             state = this.conexion.getConexion().prepareStatement(consulta);
             state.setLong(1, idDivision);
-            
+
             rs = state.executeQuery();
-            
-            listadoProductos = new ArrayList<>(0);
-            
-            while(rs.next()){
-                producto = new Producto( rs.getString("codigo"), new UnidadMedidaDao().buscarUnidadPorId(rs.getLong("unidadMedida")), 
-                        rs.getString("nombre"), rs.getFloat("peso"), rs.getFloat("medida"), rs.getFloat("precio"), 
+
+            listadoProductos = new ArrayList<String>();
+
+            while (rs.next()) {
+                producto = new Producto(rs.getString("codigo"), new UnidadMedidaDao().buscarUnidadPorId(rs.getLong("unidadMedida")),
+                        rs.getString("nombre"), rs.getFloat("peso"), rs.getFloat("medida"), rs.getFloat("precio"),
                         new GrupoAlimentosDao().buscarGrupoAlimentosPorId(rs.getLong("grupo")));
                 productoDonacion = new ProductoDonacion(producto, rs.getLong("cantidadProducto"), rs.getLong("conforme"));
                 listadoProductos.add(productoDonacion.toString() + "," + rs.getString("cantidadAlmacenada"));
             }
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
-        
+
         return listadoProductos;
     }
 }

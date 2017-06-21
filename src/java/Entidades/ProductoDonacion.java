@@ -80,6 +80,6 @@ public class ProductoDonacion {
 
     @Override
     public String toString() {
-        return producto + "," + cantidad + "," + comentarios + "," + conforme + "," + donacion;
+        return producto + "," + cantidad + ","  + conforme + "," + donacion;
     }
 }

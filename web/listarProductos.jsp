@@ -41,7 +41,6 @@
                 </div>
                 <div class="row">
                     <div class="col-md-5 col-md-offset-1">
-                        <button type="input" id="registrarDonacion" class="btn btn-info btn-fill btn-wd btnEnviarAjax">CARGAR</button>
                     </div>
                 </div>
                 <div id="cargarProductosInfo">
@@ -56,3 +55,16 @@
 </div>
 <script src="assets/js/misForm.js"></script>
 <script src="assets/js/ajaxScripts.js"></script>
+<script>
+                            function listarProductosDivision() {
+                                var idDivision = document.getElementById("division2").value;
+                                var rutaPagina = "includes/listarProductosDivision.jsp";
+                                $.post(rutaPagina, {
+                                    division: idDivision
+                                },
+                                function(data) {
+                                    $("#infoResultado").html(data);
+                                });
+                                console.log("Cargando las divisiones " + idDivision);
+                            }
+</script>
